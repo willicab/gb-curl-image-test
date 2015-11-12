@@ -1,0 +1,27 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,72,78)
+  Resizable = False
+  Spacing = True
+  Padding = 7
+  { HBox1 HBox
+    MoveScaled(0,0,72,4)
+    Expand = True
+    { txtLoad TextBox
+      MoveScaled(0,0,24,4)
+      Expand = True
+      Text = ("http://ia.media-imdb.com/images/M/MV5BNTgxOTI4NzY2M15BMl5BanBnXkFtZTgwMjY3MTM2NDE@._V1_SX300.jpg")
+    }
+    { btnLoad Button
+      MoveScaled(37,0,16,4)
+      Text = ("Load")
+    }
+  }
+  { picLoad PictureBox
+    MoveScaled(11,5,49,16)
+    Expand = True
+    Stretch = True
+    Alignment = Align.Center
+  }
+}

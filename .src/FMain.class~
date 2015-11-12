@@ -1,0 +1,59 @@
+' Gambas class file
+
+' How to download a file from the internet asynchronously
+
+Private hAsyncClient As New HttpClient As "hAsyncClient"
+Private sDownloadBuffer As String
+Private hPic As Picture
+
+Public Sub DownloadAsync(URL As String)
+
+  sDownloadBuffer = ""
+  hAsyncClient.URL = URL
+  hAsyncClient.TimeOut = 20
+  hAsyncClient.Async = True
+  hAsyncClient.Get()
+
+End
+
+Public Sub hAsyncClient_Connect()
+
+  Print "Connected to " & hAsyncClient.URL
+
+End
+
+Public Sub hAsyncClient_Read()
+
+  Dim sBuffer As String
+
+  sBuffer = Read #Last, Lof(Last)
+  sDownloadBuffer &= sBuffer
+
+End
+
+Public Sub hAsyncClient_Error()
+
+  Print "Error " & hAsyncClient.Status & " while downloading " & hAsyncClient.URL
+
+End
+
+Public Sub hAsyncClient_Finished()
+
+  'Print sDownloadBuffer
+  File.Save("/tmp/tmp.png", sDownloadBuffer)
+  Try hPic = Picture.Load("/tmp/tmp.png")
+  If Error Then
+    Message.Error(("Invalid Image"))
+    Return
+  Endif
+  picLoad.Resize(picLoad.Width, ((hPic.Height * picLoad.Width) / hPic.Width))
+  picLoad.Picture = hPic
+  Kill "/tmp/tmp.png"
+
+End
+
+Public Sub btnLoad_Click()
+
+  DownloadAsync(txtLoad.Text)
+
+End
